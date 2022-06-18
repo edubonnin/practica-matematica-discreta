@@ -5,9 +5,6 @@ import java.util.function.BiPredicate;
 import java.util.function.Function;
 import java.util.function.IntPredicate;
 import java.util.function.Predicate;
-
-import javax.sound.sampled.SourceDataLine;
-
 import java.util.Set;
 
 /*
@@ -29,9 +26,9 @@ import java.util.Set;
  *
  * Podeu fer aquesta entrega en grups de com a màxim 3 persones, i necessitareu com a minim Java 8.
  * Per entregar, posau a continuació els vostres noms i entregau únicament aquest fitxer.
- * - LLUÍS ALCOVER SERRA
- * - EDUARDO BONNÍN NARVÁEZ
- * - VICTOR CANELO GALERA
+ * - Nom 1:
+ * - Nom 2:
+ * - Nom 3:
  *
  * L'entrega es farà a través d'una tasca a l'Aula Digital abans de la data que se us hagui
  * comunicat i vos recomanam que treballeu amb un fork d'aquest repositori per seguir més fàcilment
@@ -61,7 +58,6 @@ class Entrega {
     static class Tema1 {
         /*
          * És cert que ∀x,y. P(x,y) -> Q(x) ^ R(y) ?
-         * !P(x,y) v (Q(x) ^ R(y))
          */
         static boolean exercici1(
                 int[] universe,
@@ -100,11 +96,8 @@ class Entrega {
 
         /*
          * És cert que ∃!x. ∀y. Q(y) -> P(x) ?
-         * ∃!x. ∀y. !Q(y) v P(x)
          */
-        static boolean exercici2(int[] universe, Predicate<Integer> p,
-                Predicate<Integer> q) {
-
+        static boolean exercici2(int[] universe, Predicate<Integer> p, Predicate<Integer> q) {
             // int contador = 0;
             boolean resultado = false;
 
@@ -125,15 +118,15 @@ class Entrega {
 
         /*
          * És cert que ¬(∃x. ∀y. y ⊆ x) ?
-         * ∀x, ∃y. !(y ⊆ x)
          *
-         * Observau que els membres de l'univers són arrays, tractau-los com conjunts
-         * i
+         * Observau que els membres de l'univers són arrays, tractau-los com conjunts i
          * podeu suposar
          * que cada un d'ells està ordenat de menor a major.
          */
         static boolean exercici3(int[][] universe) {
-            int[][] aux = { universe[0] };
+
+            // equiv. ∀x. ∃y. ¬(y ⊆ x)
+            int[][] aux = new int[universe.length][];
             boolean igual = false;
             int j = 0;
 
@@ -147,22 +140,20 @@ class Entrega {
                         igual = true;
                         j++;
                     } else {
-                        igual = false;
+                        return false;
                     }
 
                 }
             }
 
             System.out.println("Tema 1, Ej3: " + igual);
-            return igual;
-
+            return !igual;
         }
 
         /*
          * És cert que ∀x. ∃!y. x·y ≡ 1 (mod n) ?
          */
         static boolean exercici4(int[] universe, int n) {
-
             int contador = 0;
             boolean resultado = false;
 
@@ -193,12 +184,10 @@ class Entrega {
         }
 
         /*
-         * Aquí teniu alguns exemples i proves relacionades amb aquests exercicis
-         * (vegeu
+         * Aquí teniu alguns exemples i proves relacionades amb aquests exercicis (vegeu
          * `main`)
          */
         static void tests() {
-
             // Exercici 1
             // ∀x,y. P(x,y) -> Q(x) ^ R(y)
 
@@ -234,14 +223,14 @@ class Entrega {
 
             // Exercici 3
             // ¬(∃x. ∀y. y ⊆ x) ?
-
-            // assertThat(
-            // exercici3(new int[][] { { 1, 2 }, { 0, 3 }, { 1, 2, 3 }, {} }));
-
-            // assertThat(
-            // !exercici3(new int[][] { { 1, 2 }, { 0, 3 }, { 1, 2, 3 }, {}, { 0, 1, 2, 3 }
-            // }));
-
+            /*
+             * assertThat(
+             * exercici3(new int[][] { { 1, 2 }, { 0, 3 }, { 1, 2, 3 }, {} }));
+             * 
+             * assertThat(
+             * !exercici3(new int[][] { { 1, 2 }, { 0, 3 }, { 1, 2, 3 }, {}, { 0, 1, 2, 3 }
+             * }));
+             */
             // Exercici 4
             // És cert que ∀x. ∃!y. x·y ≡ 1 (mod n) ?
 
@@ -260,8 +249,7 @@ class Entrega {
     /*
      * Aquí teniu els exercicis del Tema 2 (Conjunts).
      *
-     * De la mateixa manera que al Tema 1, per senzillesa tractarem els conjunts
-     * com
+     * De la mateixa manera que al Tema 1, per senzillesa tractarem els conjunts com
      * arrays (sense
      * elements repetits). Per tant, un conjunt de conjunts d'enters tendrà tipus
      * int[][].
@@ -288,7 +276,6 @@ class Entrega {
          * tant `a` com cada un dels elements de `p` està ordenat de menor a major.
          */
         static boolean exercici1(int[] a, int[][] p) {
-
             int contador = 0, contador2 = 0;
             boolean resultado = false;
 
@@ -296,7 +283,7 @@ class Entrega {
                 for (int y = 0; y < p[x].length; y++) {
                     if (contains(a, p[x][y])) {
                         for (int j = 0; j < p.length; j++) {
-                            contador2=0;
+                            contador2 = 0;
                             if (contains(p[j], p[x][y])) {
                                 contador2++;
                             }
@@ -320,30 +307,93 @@ class Entrega {
          * Comprovau si la relació `rel` definida sobre `a` és un ordre parcial i que
          * `x` n'és el mínim.
          *
-         * Podeu soposar que `x` pertany a `a` i que `a` està ordenat de menor a
-         * major.
+         * Podeu soposar que `x` pertany a `a` i que `a` està ordenat de menor a major.
          */
         static boolean exercici2(int[] a, int[][] rel, int x) {
-            return false; // TO DO
+
+            boolean reflex = false, antisim = false, trans = false, menor = false;
+            int contador = 0;
+
+            // Reflexiva
+            for (int i = 0; i < a.length; i++) {
+                for (int j = 0; j < rel.length; j++) {
+                    if ((a[i] == rel[j][0]) && (a[i] == rel[j][1])) {
+                        contador++;
+                    }
+                }
+            }
+
+            if (contador == a.length) {
+                reflex = true;
+            }
+
+            // Antisimètrica
+            for (int i = 0; i < rel.length; i++) {
+                if (rel[i][0] != rel[i][1]) {
+                    int aux1 = rel[i][0];
+                    int aux2 = rel[i][1];
+
+                    for (int j = 0; j < rel.length; j++) {
+                        if (rel[j][0] != rel[j][1]) {
+                            if (rel[j][0] == aux2 && rel[j][1] == aux1) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            antisim = true;
+
+            // Transitiva
+            int aux1, aux2, aux3;
+
+            for (int i = 0; i < rel.length; i++) {
+                if (rel[i][0] != rel[i][1]) {
+                    aux1 = rel[i][0];
+                    aux2 = rel[i][1];
+
+                    for (int j = 0; j < rel.length; j++) {
+                        if (rel[j][0] != rel[j][1]) {
+                            if (rel[j][0] == aux2 && rel[j][1] != aux1) {
+                                aux3 = rel[j][1];
+
+                                trans = false;
+
+                                for (int k = 0; k < rel.length; k++) {
+                                    if (rel[k][0] != rel[k][1]) {
+                                        if (rel[k][0] == aux1 && rel[k][1] == aux3) {
+                                            trans = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            if (a[0] == x) {
+                // x és el mínim
+                menor = true;
+            }
+
+            return (reflex && antisim && trans) && menor;
         }
 
         /*
          * Suposau que `f` és una funció amb domini `dom` i codomini `codom`. Trobau
          * l'antiimatge de
-         * `y` (ordenau el resultat de menor a major, podeu utilitzar
-         * `Arrays.sort()`).
+         * `y` (ordenau el resultat de menor a major, podeu utilitzar `Arrays.sort()`).
          * Podeu suposar
          * que `y` pertany a `codom` i que tant `dom` com `codom` també estàn ordenats
          * de menor a major.
          */
-        static int[] exercici3(int[] dom, int[] codom, Function<Integer, Integer> f,
-                int y) {
+        static int[] exercici3(int[] dom, int[] codom, Function<Integer, Integer> f, int y) {
             return new int[] {}; // TO DO
         }
 
         /*
-         * Suposau que `f` és una funció amb domini `dom` i codomini `codom`.
-         * Retornau:
+         * Suposau que `f` és una funció amb domini `dom` i codomini `codom`. Retornau:
          * - 3 si `f` és bijectiva
          * - 2 si `f` només és exhaustiva
          * - 1 si `f` només és injectiva
@@ -363,8 +413,7 @@ class Entrega {
         }
 
         /*
-         * Aquí teniu alguns exemples i proves relacionades amb aquests exercicis
-         * (vegeu
+         * Aquí teniu alguns exemples i proves relacionades amb aquests exercicis (vegeu
          * `main`)
          */
         static void tests() {
@@ -390,7 +439,7 @@ class Entrega {
                 for (int j = 1; j <= i; j++) {
                     if (i % j == 0) {
                         // i és múltiple de j, és a dir, j|i
-                        divisibility.add(new int[] { i, j });
+                        divisibility.add(new int[] { j, i });
                     }
                 }
             }
@@ -461,12 +510,144 @@ class Entrega {
                             new int[] { 0, 1, 2, 3 },
                             x -> x <= 1 ? x + 1 : x - 1) == NOTHING_SPECIAL);
         }
-
     }
 
     /*
-     * Aquest mètode `main` conté alguns exemples de paràmetres i dels resultats
-     * que
+     * Aquí teniu els exercicis del Tema 3 (Aritmètica).
+     *
+     */
+    static class Tema3 {
+        /*
+         * Donat `a`, `b` retornau el màxim comú divisor entre `a` i `b`.
+         *
+         * Podeu suposar que `a` i `b` són positius.
+         */
+        static int exercici1(int a, int b) {
+            return -1; // TO DO
+        }
+
+        /*
+         * Es cert que `a``x` + `b``y` = `c` té solució?.
+         *
+         * Podeu suposar que `a`, `b` i `c` són positius.
+         */
+        static boolean exercici2(int a, int b, int c) {
+            return false; // TO DO
+        }
+
+        /*
+         * Quin es l'invers de `a` mòdul `n`?
+         *
+         * Retornau l'invers sempre entre 1 i `n-1`, en cas que no existeixi retornau -1
+         */
+        static int exercici3(int a, int n) {
+            return -1; // TO DO
+        }
+
+        /*
+         * Aquí teniu alguns exemples i proves relacionades amb aquests exercicis (vegeu
+         * `main`)
+         */
+        static void tests() {
+            // Exercici 1
+            // `mcd(a,b)`
+
+            assertThat(
+                    exercici1(2, 4) == 2);
+
+            assertThat(
+                    exercici1(1236, 984) == 12);
+
+            // Exercici 2
+            // `a``x` + `b``y` = `c` té solució?
+
+            assertThat(
+                    exercici2(4, 2, 2));
+            assertThat(
+                    !exercici2(6, 2, 1));
+            // Exercici 3
+            // invers de `a` mòdul `n`
+            assertThat(exercici3(2, 5) == 3);
+            assertThat(exercici3(2, 6) == -1);
+        }
+    }
+
+    static class Tema4 {
+        /*
+         * Donada una matriu d'adjacencia `A` d'un graf no dirigit, retornau l'ordre i
+         * la mida del graf.
+         */
+        static int[] exercici1(int[][] A) {
+            return new int[] {}; // TO DO
+        }
+
+        /*
+         * Donada una matriu d'adjacencia `A` d'un graf no dirigit, digau si el graf es
+         * eulerià.
+         */
+        static boolean exercici2(int[][] A) {
+            return false; // TO DO
+        }
+
+        /*
+         * Donat `n` el número de fulles d'un arbre arrelat i `d` el nombre de fills
+         * dels nodes interiors i de l'arrel,
+         * retornau el nombre total de vèrtexos de l'arbre
+         *
+         */
+        static int exercici3(int n, int d) {
+            return -1; // TO DO
+        }
+
+        /*
+         * Donada una matriu d'adjacencia `A` d'un graf connex no dirigit, digau si el
+         * graf conté algún cicle.
+         */
+        static boolean exercici4(int[][] A) {
+            return false; // TO DO
+        }
+
+        /*
+         * Aquí teniu alguns exemples i proves relacionades amb aquests exercicis (vegeu
+         * `main`)
+         */
+        static void tests() {
+            // Exercici 1
+            // `ordre i mida`
+
+            assertThat(
+                    Arrays.equals(exercici1(new int[][] { { 0, 1, 0 }, { 1, 0, 1 }, { 0, 1, 0 } }),
+                            new int[] { 3, 2 }));
+
+            assertThat(
+                    Arrays.equals(
+                            exercici1(new int[][] { { 0, 1, 0, 1 }, { 1, 0, 1, 1 }, { 0, 1, 0, 1 }, { 1, 1, 1, 0 } }),
+                            new int[] { 4, 5 }));
+
+            // Exercici 2
+            // `Es eulerià?`
+
+            assertThat(
+                    exercici2(new int[][] { { 0, 1, 1 }, { 1, 0, 1 }, { 1, 1, 0 } }));
+            assertThat(
+                    !exercici2(new int[][] { { 0, 1, 0 }, { 1, 0, 1 }, { 0, 1, 0 } }));
+            // Exercici 3
+            // `Quants de nodes té l'arbre?`
+            assertThat(exercici3(5, 2) == 9);
+            assertThat(exercici3(7, 3) == 10);
+
+            // Exercici 4
+            // `Conté algún cicle?`
+            assertThat(
+                    exercici4(new int[][] { { 0, 1, 1 }, { 1, 0, 1 }, { 1, 1, 0 } }));
+            assertThat(
+                    !exercici4(new int[][] { { 0, 1, 0 }, { 1, 0, 1 }, { 0, 1, 0 } }));
+
+        }
+    }
+
+    /*
+     * Aquest mètode `main` conté alguns exemples de paràmetres i dels resultats que
      * haurien de donar
      * els exercicis. Podeu utilitzar-los de guia i també en podeu afegir d'altres
      * (no els tendrem en
@@ -478,6 +659,8 @@ class Entrega {
     public static void main(String[] args) {
         Tema1.tests();
         Tema2.tests();
+        Tema3.tests();
+        Tema4.tests();
     }
 
     static void assertThat(boolean b) {
