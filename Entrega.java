@@ -223,14 +223,13 @@ class Entrega {
 
             // Exercici 3
             // ¬(∃x. ∀y. y ⊆ x) ?
-            /*
-             * assertThat(
-             * exercici3(new int[][] { { 1, 2 }, { 0, 3 }, { 1, 2, 3 }, {} }));
-             * 
-             * assertThat(
-             * !exercici3(new int[][] { { 1, 2 }, { 0, 3 }, { 1, 2, 3 }, {}, { 0, 1, 2, 3 }
-             * }));
-             */
+            
+            assertThat(
+                    exercici3(new int[][] { { 1, 2 }, { 0, 3 }, { 1, 2, 3 }, {} }));
+              
+            assertThat(
+                    !exercici3(new int[][] { { 1, 2 }, { 0, 3 }, { 1, 2, 3 }, {}, { 0, 1, 2, 3 }
+                    }));
             // Exercici 4
             // És cert que ∀x. ∃!y. x·y ≡ 1 (mod n) ?
 
@@ -389,7 +388,24 @@ class Entrega {
          * de menor a major.
          */
         static int[] exercici3(int[] dom, int[] codom, Function<Integer, Integer> f, int y) {
-            return new int[] {}; // TO DO
+
+            ArrayList<Integer> arr = new ArrayList<Integer>();
+            int aux = 0;
+            int[] tmp;
+
+            for (int i = 0; i < dom.length; i++) {
+                aux = f.apply(dom[i]);
+                if (aux == y) {
+                    arr.add(dom[i]);
+                }
+            }
+
+            tmp = new int[arr.size()];
+            for (int i = 0; i < arr.size(); i++) {
+                tmp[i] = arr.get(i);
+            }
+
+            return tmp;
         }
 
         /*
@@ -409,7 +425,54 @@ class Entrega {
         static final int BIJECTIVE = INJECTIVE + SURJECTIVE;
 
         static int exercici4(int[] dom, int[] codom, Function<Integer, Integer> f) {
-            return -1; // TO DO
+
+            boolean injectiva = true, exhaustiva = false;
+
+            // Injectiva
+            for(int i=0;i<dom.length;i++){
+                
+            }
+
+            // int[] codomAux =codom;
+            // int contador;
+
+            // // Injectiva
+            // for (int i = 0; i < dom.length; i++) {
+            //     for(int j=0;j<codom.length;j++){
+            //         if(f.apply(dom[i])==codomAux[j]){
+            //             codomAux[j]=999;
+            //         } else {
+            //             injectiva=false;
+            //         }
+            //     }
+            // }
+
+            // // Exhaustiva
+            // boolean salir = false;
+            // contador = 0;
+            // for (int i = 0; i < codom.length; i++) {
+            //     for (int j = 0; j < dom.length && !salir; j++) {
+            //         if (codom[i] == f.apply(dom[j])) {
+            //             contador++;
+            //             salir = true;
+            //         }
+            //     }
+            //     salir = false;
+            // }
+            // if (contador == codom.length) {
+            //     exhaustiva = true;
+            // }
+
+            if (injectiva && !exhaustiva) {
+                return 1;
+            } else if (!injectiva && exhaustiva) {
+                return 2;
+            } else if (injectiva && exhaustiva) {
+                return 3;
+            } else {
+                return 0;
+            }
+
         }
 
         /*
@@ -485,7 +548,7 @@ class Entrega {
 
             // Exercici 4
             // classificar la funció en res/injectiva/exhaustiva/bijectiva
-
+            
             assertThat(
                     exercici4(
                             new int[] { 0, 1, 2, 3 },
@@ -509,6 +572,7 @@ class Entrega {
                             new int[] { 0, 1, 2, 3 },
                             new int[] { 0, 1, 2, 3 },
                             x -> x <= 1 ? x + 1 : x - 1) == NOTHING_SPECIAL);
+            
         }
     }
 
@@ -523,7 +587,16 @@ class Entrega {
          * Podeu suposar que `a` i `b` són positius.
          */
         static int exercici1(int a, int b) {
-            return -1; // TO DO
+            return mcd(a, b);
+        }
+
+        private static int mcd(int a, int b) {
+            if (b == 0) {
+                return a;
+            }
+
+            return mcd(b, a % b);
+
         }
 
         /*
@@ -532,7 +605,11 @@ class Entrega {
          * Podeu suposar que `a`, `b` i `c` són positius.
          */
         static boolean exercici2(int a, int b, int c) {
-            return false; // TO DO
+            int mcd = 0;
+
+            mcd = mcd(a, b);
+
+            return c % mcd == 0;
         }
 
         /*
@@ -541,7 +618,15 @@ class Entrega {
          * Retornau l'invers sempre entre 1 i `n-1`, en cas que no existeixi retornau -1
          */
         static int exercici3(int a, int n) {
-            return -1; // TO DO
+            a = a % n;
+            for (int x = 1; x < n; x++) {
+
+                if ((a * x) % n == 1) {
+                    return x;
+                }
+            }
+
+            return -1;
         }
 
         /*
@@ -578,7 +663,22 @@ class Entrega {
          * la mida del graf.
          */
         static int[] exercici1(int[][] A) {
-            return new int[] {}; // TO DO
+            int numVertexos = A.length;
+            int numArestes = 0;
+
+            for (int i = 0; i < A.length; i++) {
+                for (int j = 0; j < A.length; j++) {
+                    if (A[i][j] == 1) {
+                        numArestes++;
+
+                    }
+
+                }
+            }
+
+            numArestes = numArestes / 2;
+
+            return new int[] { numVertexos, numArestes };
         }
 
         /*
@@ -586,7 +686,23 @@ class Entrega {
          * eulerià.
          */
         static boolean exercici2(int[][] A) {
-            return false; // TO DO
+            // Eulerià - Tots els vertexos amb grau parell
+            int numArestes = 0;
+
+            for (int i = 0; i < A.length; i++) {
+                // Per a cada node comptam el numArestes
+                for (int j = 0; j < A[i].length; j++) {
+                    if (A[i][j] == 1) {
+                        numArestes++;
+                    }
+                }
+
+                // Si per colque node es diferent de 2, false
+                if (numArestes % 2 != 0) {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /*
@@ -596,7 +712,8 @@ class Entrega {
          *
          */
         static int exercici3(int n, int d) {
-            return -1; // TO DO
+
+            return (n*d-1)/(d-1);
         }
 
         /*
@@ -604,7 +721,22 @@ class Entrega {
          * graf conté algún cicle.
          */
         static boolean exercici4(int[][] A) {
-            return false; // TO DO
+            int orden=A.length;
+            int medida=0;
+
+            for(int i=0;i<A.length;i++){
+                for(int j=0;j<A.length;j++){
+                    medida=medida+A[i][j];
+                }
+            }
+
+            medida=medida/2;
+
+            if(medida==orden-1) {
+                return false;
+            }else{
+                return true;
+            }
         }
 
         /*
