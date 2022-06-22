@@ -26,9 +26,9 @@ import java.util.Set;
  *
  * Podeu fer aquesta entrega en grups de com a màxim 3 persones, i necessitareu com a minim Java 8.
  * Per entregar, posau a continuació els vostres noms i entregau únicament aquest fitxer.
- * - Nom 1: ed
- * - Nom 2:
- * - Nom 3:
+ * - Nom 1: Eduardo Bonnin Narvaez
+ * - Nom 2: LLuis Alcover Serra
+ * - Nom 3: Victor Canelo Galera
  *
  * L'entrega es farà a través d'una tasca a l'Aula Digital abans de la data que se us hagui
  * comunicat i vos recomanam que treballeu amb un fork d'aquest repositori per seguir més fàcilment
@@ -67,19 +67,6 @@ class Entrega {
 
             boolean result = false;
 
-            // *código original (bu)
-            // for (int x = 0; x < universe.length; x++) {
-            // for (int y = 0; y < universe.length; y++) {
-            // if (!p.test(universe[x], universe[y]) || (q.test(universe[x]) &&
-            // r.test(universe[y]))) {
-            // resultado = true;
-            // } else {
-            // resultado = false;
-            // }
-
-            // }
-            // }
-
             for (int x = 0; x < universe.length; x++) {
                 for (int y = 0; y < universe.length; y++) {
                     if ((p.test(universe[x], universe[y]) || (q.test(universe[x]) && r.test(universe[y])))) {
@@ -90,7 +77,6 @@ class Entrega {
                 }
             }
 
-            System.out.println("Tema 1, Ej1: " + result);
             return result;
         }
 
@@ -112,7 +98,6 @@ class Entrega {
                 }
             }
 
-            System.out.println("Tema 1, Ej2: " + resultado);
             return resultado;
         }
 
@@ -146,7 +131,6 @@ class Entrega {
                 }
             }
 
-            System.out.println("Tema 1, Ej3: " + igual);
             return !igual;
         }
 
@@ -179,7 +163,6 @@ class Entrega {
                 resultado = false;
             }
 
-            System.out.println("Tema 1, Ej4: " + resultado);
             return resultado;
         }
 
@@ -298,7 +281,6 @@ class Entrega {
                 resultado = true;
             }
 
-            System.out.println("Tema 2, Ej1: " + resultado);
             return resultado;
         }
 
